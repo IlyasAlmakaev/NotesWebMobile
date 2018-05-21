@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AuthorizeTemplate from '../containers/AuthorizeTemplate';
-import { API_LOGIN_URL } from '../model/constants/User';
+import { API_REGISTRATION_URL } from '../model/constants/User';
 
 export default class Authorization extends Component {
 
@@ -8,8 +8,8 @@ export default class Authorization extends Component {
 
     return (
 		<AuthorizeTemplate 
-		firstNameButton={'Авторизироваться'}
-		secondNameButton={'На регистрацию'} />
+		firstNameButton={'Зарегистрироваться'}
+		secondNameButton={'На авторизацию'} />
     );
   }
 }
