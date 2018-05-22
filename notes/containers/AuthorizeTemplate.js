@@ -20,7 +20,7 @@ import { authorizeRequest } from "../requests/Requests";
   const mapDispatchToProps = (dispatch) => {
     return {
       authorizeRequest: (url, user) => dispatch(authorizeRequest(url, user)),
-     // setUserIDFromForm: (id) => dispatch(setUserID(id))
+      setUserIDFromForm: (id) => dispatch(setUserID(id))
     };
   };  
 
@@ -53,6 +53,21 @@ class AuthorizeTemplate extends Component {
       console.debug("reff" + this.email);
       this.props.authorizeRequest(this.props.apiUrl, user)
 	//	this.props.fetchData(this.props.apiUrl, user)
+    }
+
+    componentWillReceiveProps(props) {	
+      console.log("itt " + props.items.id + "err" + props.error);
+      if (props.error) {
+        alert(props.error)
+      } else if (props.items) {
+        alert(props.items.id)
+     //   this.props.history.push(this.props.nextForm);
+  
+        if (this.props.nextForm === "/notes") {
+          console.log("itt11 " + props.items.id + "err" + props.error);
+          props.setUserIDFromForm(props.items.id);
+        }
+      }
     }
     
     onBtnGoClickHandler(e) {

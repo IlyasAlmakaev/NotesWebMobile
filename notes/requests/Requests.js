@@ -1,7 +1,7 @@
 import { BASE_URL } from "../constants/User";
 import { GET_USER_DATA, GET_ERROR } from "../constants/User";
 
-export function authorizeRequest(url, user, type, method) {
+export function commonAuthorizeRequest(url, user, type, method) {
 
     let urlFull = BASE_URL + url;
     let bodyData = JSON.stringify(user);
@@ -26,4 +26,8 @@ export function authorizeRequest(url, user, type, method) {
         .then((items) => dispatch({ type: type, payload: items }))
         .catch((error) => dispatch({ type: GET_ERROR, payload: error.message }));
     }
+}
+
+export function authorizeRequest(url, user) {
+    return commonAuthorizeRequest(url, user, GET_USER_DATA, 'post')
 }
