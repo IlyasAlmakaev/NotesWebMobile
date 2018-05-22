@@ -3,3 +3,5 @@ export const GET_ERROR = 'GET_ERROR'
 
 export const API_LOGIN_URL = 'api/Users/login';
 export const API_REGISTRATION_URL = 'api/Users';
+
+export const BASE_URL = 'http://localhost:3000/'

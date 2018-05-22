@@ -5,33 +5,58 @@ import {
     Button,
     View
   } from 'react-native';
-  import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Actions } from 'react-native-router-flux';
+import { authorizeRequest } from "../requests/Requests";
+
+  const mapStateToProps = (state) => {
+    return {
+      items: state.user.data,
+      error: state.user.error
+    };
+  };
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      authorizeRequest: (url, user) => dispatch(authorizeRequest(url, user)),
+     // setUserIDFromForm: (id) => dispatch(setUserID(id))
+    };
+  };  
 
 class AuthorizeTemplate extends Component {
 
     constructor(props) {
-		super(props);
-		this.state = {emailIsEmpty: true,
+		  super(props);
+		  this.state = {emailIsEmpty: true,
                     passwordIsEmpty: true,
                     email: '',
                     password: ''};
-        this.onBtnClickHandler = this.onBtnClickHandler.bind(this);
-		this.onBtnGoClickHandler = this.onBtnGoClickHandler.bind(this);
+      this.onBtnClickHandler = this.onBtnClickHandler.bind(this);
+		  this.onBtnGoClickHandler = this.onBtnGoClickHandler.bind(this);
     }
 
-    onBtnClickHandler(e) {
-		e.preventDefault();
+    static propTypes = {
+      authorizeRequest: PropTypes.func.isRequired,
+      setUserID: PropTypes.func,
+      items: PropTypes.object.isRequired,
+      error: PropTypes.string.isRequired
+     }
 
-		let user = {
-			email: this.email,
-			password: this.password
-		};
-    console.log("reff" + user);
+    onBtnClickHandler(e) {
+		  e.preventDefault();
+
+		  let user = {
+			  email: "a@a.a",
+			  password: "1"
+        };
+      console.debug("reff" + this.email);
+      this.props.authorizeRequest(this.props.apiUrl, user)
 	//	this.props.fetchData(this.props.apiUrl, user)
     }
     
     onBtnGoClickHandler(e) {
-		e.preventDefault();
+		  e.preventDefault();
         if (this.props.firstNameButton === 'Авторизироваться') {
             Actions.registration();
         } else {
@@ -46,38 +71,37 @@ class AuthorizeTemplate extends Component {
       passwordIsEmpty = this.state.passwordIsEmpty;
 
     return (
-        <View style={styles.container}>
-			<TextInput
-                autoFocus={true}
-                onChangeText={(text) => this.setState({emailIsEmpty: !text.trim().length, email: text})} 
-                placeholder='Электронная почта'
-                ref='email'
-                value={this.state.email}
-            />
-			<TextInput
-                onChangeText={(text) => this.setState({passwordIsEmpty: !text.trim().length, password: text})}
-                placeholder='Пароль'
-                ref='password' 
-                value={this.state.password}
-            />
-            <Button
-                onPress={this.onBtnClickHandler}
-                title={this.props.firstNameButton}
-                color="#007DDC"
-                disabled={emailIsEmpty || passwordIsEmpty}
-            />
-            <Button
-                onPress={this.onBtnGoClickHandler}
-                title={this.props.secondNameButton}
-                color="#007DDC"
-            />
-        </View>
+      <View style={styles.container}>
+        <TextInput
+          autoFocus={true}
+          onChangeText={(text) => this.setState({emailIsEmpty: !text.trim().length, email: text})} 
+          placeholder='Электронная почта'
+          ref='email'
+          value={this.state.email}
+        />
+        <TextInput
+          onChangeText={(text) => this.setState({passwordIsEmpty: !text.trim().length, password: text})}
+          placeholder='Пароль'
+          ref='password' 
+          value={this.state.password}
+        />
+        <Button
+          onPress={this.onBtnClickHandler}
+          title={this.props.firstNameButton}
+          color="#007DDC"
+          disabled={emailIsEmpty || passwordIsEmpty}
+        />
+        <Button
+          onPress={this.onBtnGoClickHandler}
+          title={this.props.secondNameButton}
+          color="#007DDC"
+        />
+      </View>
     );
   }
 }
 
-
-export default AuthorizeTemplate
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorizeTemplate);
 
 const styles = StyleSheet.create({
     container: {
