@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 import { authorizeRequest } from "../requests/Requests";
+import { styles } from "../Styles";
 
   const mapStateToProps = (state) => {
     return {
@@ -47,10 +48,10 @@ class AuthorizeTemplate extends Component {
 		  e.preventDefault();
 
 		  let user = {
-			  email: "a@a.a",
-			  password: "1"
+			  email: this.state.email,
+			  password: this.state.password
         };
-      console.debug("reff" + this.email);
+      console.debug("reff" + this.state.email);
       this.props.authorizeRequest(this.props.apiUrl, user)
 	//	this.props.fetchData(this.props.apiUrl, user)
     }
@@ -63,9 +64,12 @@ class AuthorizeTemplate extends Component {
         alert(props.items.id)
      //   this.props.history.push(this.props.nextForm);
   
-        if (this.props.nextForm === "/notes") {
+        if (this.props.firstNameButton === 'Авторизироваться') {
           console.log("itt11 " + props.items.id + "err" + props.error);
-          props.setUserIDFromForm(props.items.id);
+          Actions.notes();
+      //    props.setUserIDFromForm(props.items.id);
+        } else {
+          Actions.authorization();
         }
       }
     }
@@ -117,22 +121,3 @@ class AuthorizeTemplate extends Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorizeTemplate);
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 10,
-    },
-    instructions: {
-      textAlign: 'center',
-      color: '#333333',
-      marginBottom: 5,
-    },
-  });
