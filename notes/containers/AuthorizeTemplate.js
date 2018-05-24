@@ -66,10 +66,10 @@ class AuthorizeTemplate extends Component {
   
         if (this.props.firstNameButton === 'Авторизироваться') {
           console.log("itt11 " + props.items.id + "err" + props.error);
-          Actions.notes();
+          Actions.replace('notes');
       //    props.setUserIDFromForm(props.items.id);
         } else {
-          Actions.authorization();
+          Actions.replace('authorization');
         }
       }
     }
@@ -77,9 +77,9 @@ class AuthorizeTemplate extends Component {
     onBtnGoClickHandler(e) {
 		  e.preventDefault();
         if (this.props.firstNameButton === 'Авторизироваться') {
-            Actions.registration();
+            Actions.replace('registration');
         } else {
-            Actions.authorization();
+          Actions.replace('authorization');
         }
 	//	this.props.history.push(this.props.navigateAddress);
 	}
