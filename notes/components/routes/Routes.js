@@ -10,7 +10,7 @@ const Routes = () => (
       <Scene key = "root">
          <Scene key = "authorization" component = {Authorization} title = "Authorization" initial={true} />
          <Scene key = "registration" component = {Registration} title = "Registration" />
-         <Scene key = "notes" component = {Notes} title = "Notes" />
+         <Scene key = "notes" component = {Notes} title = "Notes" onRight={()=>{}} rightTitle={'Add Note'} />
       </Scene>
    </Router>
 )
