@@ -8,9 +8,9 @@ import Notes from '../../containers/notes/Notes';
 const Routes = () => (
    <Router>
       <Scene key = "root">
-         <Scene key = "authorization" component = {Authorization} title = "Authorization" initial hideNavBar/>
-         <Scene key = "registration" component = {Registration} title = "Registration" hideNavBar/>
-         <Scene key = "notes" component = {Notes} title = "Notes" hideNavBar/>
+         <Scene key = "authorization" component = {Authorization} title = "Authorization" initial={true} />
+         <Scene key = "registration" component = {Registration} title = "Registration" />
+         <Scene key = "notes" component = {Notes} title = "Notes" />
       </Scene>
    </Router>
 )
