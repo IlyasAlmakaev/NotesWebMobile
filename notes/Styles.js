@@ -9,6 +9,12 @@ export const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: '#F5FCFF',
     },
+    flatContainer :{
+      // Setting up View inside content in Vertically center.
+      justifyContent: 'center',
+      flex:1,
+      margin: 10
+    },
     welcome: {
       fontSize: 20,
       textAlign: 'center',
@@ -18,10 +24,5 @@ export const styles = StyleSheet.create({
       textAlign: 'center',
       color: '#333333',
       marginBottom: 5,
-    },
-    flatview: {
-      justifyContent: 'center',
-      paddingTop: 30,
-      borderRadius: 2,
     }
   });

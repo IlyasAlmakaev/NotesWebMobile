@@ -34,19 +34,30 @@ export default class Notes extends Component {
     this.setState({ done: value })
  }
 
+ FlatListItemSeparator = () => {
+  return (
+    <View
+      style={{
+        height: 1,
+        width: "100%",
+        backgroundColor: "#607D8B",
+      }}
+    />
+  );
+}
+
   render() {
     
     let notes=[{key: 'a'}, {key: 'b'}];
     let notesTemplate;
 
     if (notes.length > 0) {
-      notesTemplate = <FlatList
+      notesTemplate = <FlatList 
         data = {notes}
         keyExtractor = {item => item.key}
+        ItemSeparatorComponent = {this.FlatListItemSeparator}
         renderItem={({item}) => (
-          <View
-          style={styles.flatview}
-          >
+          <View>
             <Text>{item.key}</Text>
             <Text>{"item.body"}</Text>
             <Switch 
@@ -63,7 +74,7 @@ export default class Notes extends Component {
       notesTemplate = <Text>{'There are no notes'}</Text>
     }
     return (
-	    <View style={styles.container}>
+	    <View style={styles.flatContainer}>
         {notesTemplate}
       </View>
     );
