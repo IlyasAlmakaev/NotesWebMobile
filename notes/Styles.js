@@ -19,4 +19,9 @@ export const styles = StyleSheet.create({
       color: '#333333',
       marginBottom: 5,
     },
+    flatview: {
+      justifyContent: 'center',
+      paddingTop: 30,
+      borderRadius: 2,
+    }
   });

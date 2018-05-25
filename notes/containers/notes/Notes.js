@@ -42,9 +42,12 @@ export default class Notes extends Component {
     if (notes.length > 0) {
       notesTemplate = <FlatList
         data = {notes}
+        keyExtractor = {item => item.key}
         renderItem={({item}) => (
-          <View>
-            <Text>{"item.title"}</Text>
+          <View
+          style={styles.flatview}
+          >
+            <Text>{item.key}</Text>
             <Text>{"item.body"}</Text>
             <Switch 
               onValueChange={ this.onDone } 
