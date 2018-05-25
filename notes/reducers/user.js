@@ -1,5 +1,4 @@
 import { GET_USER_DATA, GET_ERROR } from "../constants/User";
-import { authorizeRequest } from "../requests/Requests";
 
 const initialState = {
     data: {},
@@ -18,17 +17,3 @@ export function user(state = initialState, action) {
             return state;
     }
 }
-
-export const mapStateToProps = (state) => {
-    return {
-      items: state.user.data,
-      error: state.user.error
-    };
-  };
-  
-export const mapDispatchToProps = (dispatch) => {
-    return {
-      authorizeRequest: (url, user) => dispatch(authorizeRequest(url, user)),
-      setUserIDFromForm: (id) => dispatch(setUserID(id))
-    };
-  };

@@ -8,8 +8,22 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
-import { styles } from "../Styles"; 
-import { mapStateToProps, mapDispatchToProps, authorizeRequest } from '../reducers/user';
+import { authorizeRequest } from "../requests/Requests";
+import { styles } from "../Styles";
+
+  const mapStateToProps = (state) => {
+    return {
+      items: state.user.data,
+      error: state.user.error
+    };
+  };
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      authorizeRequest: (url, user) => dispatch(authorizeRequest(url, user)),
+      setUserIDFromForm: (id) => dispatch(setUserID(id))
+    };
+  };  
 
 class AuthorizeTemplate extends Component {
 
