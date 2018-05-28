@@ -61,6 +61,12 @@ class EditNote extends Component {
     setBody: PropTypes.func
  }
 
+ constructor(props) {
+  super(props);
+
+  this.onFieldChange = this.onFieldChange.bind(this);
+}
+
  componentWillMount() {
   this.props.navigation.setParams({
       'onRight': this.onSaveNote,
@@ -86,9 +92,9 @@ onClose() {
 
  onFieldChange(fieldName, e) {
   if (fieldName == 'titleField') {
-    this.props.setTitle(e.target.value);
+    this.props.setTitle(e);
   } else  {
-    this.props.setBody(e.target.value);
+    this.props.setBody(e);
   }
 }
 
