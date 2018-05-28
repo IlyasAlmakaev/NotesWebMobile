@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { TouchableOpacity } from 'react-native';
 import { deleteTask, getTasks, setEditTaskData, replaceTask } from '../../requests/Requests';
 import { Notes } from './Notes';
 import {
@@ -9,6 +10,7 @@ import {
     Text,
     Switch
   } from 'react-native';
+  import { Actions } from 'react-native-router-flux';
 
 const mapStateToProps = (state) => {
 	return {
@@ -61,19 +63,20 @@ class Note extends Component {
           super(props);
     }
   
-    // onEditNoteBtnClickHandler(e) {
-    //     e.preventDefault();
+    onPressCell = (e) =>{
+        e.preventDefault();
 
-    //     let data = {
-    //             title: this.props.data.title,
-    //             body: this.props.data.body,
-    //             taskID: this.props.data.id,
-    //             userID: this.props.id   
-    //     };
         
-    //     this.props.setEditTaskDataFromForm(data);
-    //     this.props.history.push('/editNote');
-    // }
+        let data = {
+                title: this.props.data.title,
+                body: this.props.data.body,
+                taskID: this.props.data.id,
+                userID: this.props.id   
+        };
+        
+        this.props.setEditTaskData(data);
+        Actions.replace('editNote');
+    }
 
     onDeleteNote() {
         alert('delete note')
@@ -81,7 +84,7 @@ class Note extends Component {
       }
     
       onDone = (value) => {
-
+        console.log(`replace /${this.props.id}/`);
         let data = { title: this.props.data.title,
             body: this.props.data.body,
             done: value};
@@ -94,6 +97,7 @@ class Note extends Component {
         let item = this.props.data;
 
       return (
+        <TouchableOpacity onPress={this.onPressCell}>
         <View>
           <Text>{item.title}</Text>
           <Text>{item.body}</Text>
@@ -105,7 +109,9 @@ class Note extends Component {
             onPress={this.onDeleteNote}
             title="Delete Note"
           />
-        </View>)
+        </View>
+        </TouchableOpacity>
+        )
     }
   }
 

@@ -1,6 +1,7 @@
 import { BASE_URL } from "../constants/User";
 import { GET_USER_DATA, GET_ERROR } from "../constants/User";
-import { GET_USER_ID, API_GET_TASKS, GET_TASKS, API_REPLACE_TASK, REPLACE_TASK } from "../constants/Task";
+import { GET_USER_ID, API_GET_TASKS, GET_TASKS, API_REPLACE_TASK, 
+    REPLACE_TASK, SET_TITLE, SET_BODY, GET_EDIT_TASK_DATA } from "../constants/Task";
 
 export function commonAuthorizeRequest(url, user, type, method) {
 
@@ -90,6 +91,24 @@ export function authorizeRequest(url, user) {
 export function setUserID(id) {
     return (dispatch) => {
         dispatch({ type: GET_USER_ID, payload: id })
+    }
+}
+
+export function setEditTaskData(data) {
+    return (dispatch) => {
+        dispatch({ type: GET_EDIT_TASK_DATA, payload: data })
+    }
+}
+
+export function setTitle(title) {
+    return (dispatch) => {
+        dispatch({ type: SET_TITLE, payload: title })
+    }
+}
+
+export function setBody(body) {
+    return (dispatch) => {
+        dispatch({ type: SET_BODY, payload: body })
     }
 }
 
