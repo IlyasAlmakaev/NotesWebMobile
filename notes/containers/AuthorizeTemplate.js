@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
-import { authorizeRequest } from "../requests/Requests";
+import { authorizeRequest, setUserID } from "../requests/Requests";
 import { styles } from "../Styles";
 
   const mapStateToProps = (state) => {
@@ -21,7 +21,7 @@ import { styles } from "../Styles";
   const mapDispatchToProps = (dispatch) => {
     return {
       authorizeRequest: (url, user) => dispatch(authorizeRequest(url, user)),
-      setUserIDFromForm: (id) => dispatch(setUserID(id))
+      setUserID: (id) => dispatch(setUserID(id))
     };
   };  
 
@@ -62,12 +62,11 @@ class AuthorizeTemplate extends Component {
         alert(props.error)
       } else if (props.items) {
         alert(props.items.id)
-     //   this.props.history.push(this.props.nextForm);
   
         if (this.props.firstNameButton === 'Авторизироваться') {
           console.log("itt11 " + props.items.id + "err" + props.error);
           Actions.replace('notes');
-      //    props.setUserIDFromForm(props.items.id);
+          props.setUserID(props.items.id);
         } else {
           Actions.replace('authorization');
         }

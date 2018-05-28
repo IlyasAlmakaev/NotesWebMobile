@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
     Button,
     View,
@@ -7,13 +8,44 @@ import {
     Switch
   } from 'react-native';
 import { styles } from '../../Styles';
+import { setUserID, getTasks } from '../../requests/Requests';
+import PropTypes from 'prop-types';
+import Note from './Note';
   
+const mapStateToProps = (state) => {
+	return {
+    id: state.task.present.id,
+    tasks: state.task.present.tasks,
+    task: state.task.present.task,
+		error: state.task.present.error
+	};
+};
 
-export default class Notes extends Component {
+const mapDispatchToProps = (dispatch) => {
+	return {
+    getTasks: (id) => dispatch(getTasks(id)),
+    setUserID: (id) => dispatch(setUserID(id))
+	};
+};
+
+class Notes extends Component {
+
+  static propTypes = {
+    id: PropTypes.string,
+    getTasks: PropTypes.func.isRequired,
+    setUserID: PropTypes.func,
+    tasks: PropTypes.array.isRequired,
+    task: PropTypes.object.isRequired,
+    error: PropTypes.string.isRequired
+ }
 
   constructor() {
     super();
     this.state = { done: true };
+  }
+
+  componentDidMount() {
+    this.props.getTasks(this.props.id);
   }
 
   componentWillMount() {
@@ -22,17 +54,13 @@ export default class Notes extends Component {
     })
   }
 
+  componentWillReceiveProps(props) {	
+    console.log("tsss " + props.tasks + "err" + props.error);
+	}
+
   onAddNote() {
     alert('add note')
   }
-
-  onDeleteNote() {
-    alert('delete note')
-  }
-
-  onDone = (value) => {
-    this.setState({ done: value })
- }
 
  FlatListItemSeparator = () => {
   return (
@@ -47,28 +75,17 @@ export default class Notes extends Component {
 }
 
   render() {
-    
-    let notes=[{key: 'a'}, {key: 'b'}];
+
     let notesTemplate;
 
-    if (notes.length > 0) {
+    if (this.props.tasks.length > 0) {
       notesTemplate = <FlatList 
-        data = {notes}
-        keyExtractor = {item => item.key}
+        data = {this.props.tasks}
+        keyExtractor = {item => item.id}
         ItemSeparatorComponent = {this.FlatListItemSeparator}
         renderItem={({item}) => (
-          <View>
-            <Text>{item.key}</Text>
-            <Text>{"item.body"}</Text>
-            <Switch 
-              onValueChange={ this.onDone } 
-              value={ this.state.done } 
-            />
-            <Button
-              onPress={this.onDeleteNote}
-              title="Delete Note"
-            />
-          </View>)}
+          <Note data={item}/>
+        )}
       />
     } else {
       notesTemplate = <Text>{'There are no notes'}</Text>
@@ -80,3 +97,5 @@ export default class Notes extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notes);
