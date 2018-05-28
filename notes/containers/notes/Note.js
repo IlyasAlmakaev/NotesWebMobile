@@ -61,19 +61,19 @@ class Note extends Component {
           super(props);
     }
   
-    onEditNoteBtnClickHandler(e) {
-        e.preventDefault();
+    // onEditNoteBtnClickHandler(e) {
+    //     e.preventDefault();
 
-        let data = {
-                title: this.props.data.title,
-                body: this.props.data.body,
-                taskID: this.props.data.id,
-                userID: this.props.id   
-        };
+    //     let data = {
+    //             title: this.props.data.title,
+    //             body: this.props.data.body,
+    //             taskID: this.props.data.id,
+    //             userID: this.props.id   
+    //     };
         
-        this.props.setEditTaskDataFromForm(data);
-        this.props.history.push('/editNote');
-    }
+    //     this.props.setEditTaskDataFromForm(data);
+    //     this.props.history.push('/editNote');
+    // }
 
     onDeleteNote() {
         alert('delete note')
@@ -81,11 +81,10 @@ class Note extends Component {
       }
     
       onDone = (value) => {
-        this.setState({ done: value })
 
         let data = { title: this.props.data.title,
             body: this.props.data.body,
-            done: e.target.checked};
+            done: value};
 
         this.props.replaceTask(this.props.id, this.props.data.id, data)
      }
