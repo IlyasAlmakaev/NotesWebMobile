@@ -95,21 +95,21 @@ class Note extends Component {
 
       return (
         <TouchableOpacity onPress={this.onPressCell}>
-        <View>
-          <Text>{item.title}</Text>
-          <Text>{item.body}</Text>
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start'}}>
-            <Switch 
-              onValueChange={this.onDone} 
-              value={item.done} 
+          <View>
+            <Text>{item.title}</Text>
+            <Text>{item.body}</Text>
+            <View style={styles.horisontalContent}>
+              <Switch 
+                onValueChange={this.onDone} 
+                value={item.done} 
+              />
+              <Text>{"Done"}</Text>
+            </View>
+            <Button
+              onPress={this.onDeleteNote}
+              title="Delete Note"
             />
-            <Text>{"Done"}</Text>
           </View>
-          <Button
-            onPress={this.onDeleteNote}
-            title="Delete Note"
-          />
-        </View>
         </TouchableOpacity>
         )
     }

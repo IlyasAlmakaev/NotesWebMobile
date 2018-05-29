@@ -28,5 +28,10 @@ export const styles = StyleSheet.create({
     textField: {
       borderBottomColor: '#000000',
       borderBottomWidth: 1,
+    },
+    horisontalContent: {
+      flex: 1, 
+      flexDirection: 'row', 
+      justifyContent: 'flex-start',
     }
   });

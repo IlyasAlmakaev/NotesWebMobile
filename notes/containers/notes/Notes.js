@@ -77,7 +77,7 @@ class Notes extends Component {
     if (this.props.tasks.length > 0) {
       notesTemplate = <FlatList 
         data = {this.props.tasks}
-        keyExtractor = {item => item.id}
+        keyExtractor = {item => item.id.toString()}
         ItemSeparatorComponent = {this.FlatListItemSeparator}
         renderItem={({item}) => (
           <Note data={item}/>
