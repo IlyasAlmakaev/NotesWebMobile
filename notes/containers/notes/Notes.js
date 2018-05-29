@@ -40,11 +40,6 @@ class Notes extends Component {
     error: PropTypes.string.isRequired
  }
 
-  constructor() {
-    super();
-    this.state = { done: true };
-  }
-
   componentDidMount() {
     this.props.getTasks(this.props.id);
   }

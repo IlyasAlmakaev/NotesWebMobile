@@ -1,13 +1,11 @@
 import { GET_USER_ID, GET_TASKS, GET_TASK, GET_ERROR, DELETE_TASK,
-    GET_EDIT_TASK_DATA, REPLACE_TASK, SET_TITLE, SET_BODY, SET_TITLE_NEW_NOTE, SET_BODY_NEW_NOTE } from "../constants/Task";
+    GET_EDIT_TASK_DATA, REPLACE_TASK, SET_TITLE, SET_BODY, SET_TITLE_NEW_NOTE, SET_BODY_NEW_NOTE, SET_DONE } from "../constants/Task";
 import undoable, { includeAction } from 'redux-undo';    
 
 const initialState = {
     id: '',
     tasks: [],
     task: {},
-    deletedTask: {}, 
-    replacedTask: {}, 
     error: '',
     data: [],
     titleNewNote: '',
@@ -23,6 +21,8 @@ function task(state = initialState, action) {
             return { ...state, data: { ...state.data, title: action.payload } }
         case SET_BODY:
             return { ...state, data: { ...state.data, body: action.payload } } 
+        case SET_DONE:
+            return { ...state, data: { ...state.data, done: action.payload } }
         case SET_TITLE_NEW_NOTE:
             return { ...state, titleNewNote: action.payload }
         case SET_BODY_NEW_NOTE:
@@ -52,7 +52,7 @@ function task(state = initialState, action) {
 }
 
 const undoableTask = undoable(task, {
-    filter: includeAction([SET_TITLE, SET_BODY, SET_TITLE_NEW_NOTE, SET_BODY_NEW_NOTE])
+    filter: includeAction([SET_TITLE, SET_BODY, SET_DONE, SET_TITLE_NEW_NOTE, SET_BODY_NEW_NOTE])
 })
 
 export default undoableTask

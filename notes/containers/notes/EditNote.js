@@ -5,19 +5,19 @@ import {
   StyleSheet,
   TextInput,
   Button,
+  Switch,
   View,
   Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
-import { replaceTask, setTitle, setBody } from '../../requests/Requests';
+import { replaceTask, setTitle, setBody, setDone } from '../../requests/Requests';
 import { styles } from '../../Styles';
 
 const mapStateToProps = (state) => {
 	return {
     data: state.task.present.data,
     error: state.task.present.error,
-    replacedTask: state.task.present.replacedTask,
     canUndo: state.task.past.length > 0,
     canRedo: state.task.future.length > 0
 	};
@@ -25,9 +25,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-    replaceTaskFromForm: (id, taskID, data) => dispatch(replaceTask(id, taskID, data)),
+    replaceTask: (id, taskID, data) => dispatch(replaceTask(id, taskID, data)),
     setTitle: (title) => dispatch(setTitle(title)),
     setBody: (body) => dispatch(setBody(body)),
+    setDone: (done) => dispatch(setDone(done)),
     onUndo: (e) => {
       e.preventDefault();
       dispatch(UndoActionCreators.undo());
@@ -47,23 +48,25 @@ class EditNote extends Component {
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
         taskID: PropTypes.number.isRequired,
-        userID: PropTypes.string.isRequired}),
+        userID: PropTypes.string.isRequired,
+        done: PropTypes.bool.isRequired
+      }),
       PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
         taskID: PropTypes.number.isRequired,
-        userID: PropTypes.string.isRequired
+        userID: PropTypes.string.isRequired,
+        done: PropTypes.bool.isRequired
       })),
     ]).isRequired,
-    replaceTaskFromForm: PropTypes.func.isRequired,
-    replacedTask: PropTypes.object.isRequired,
+    replaceTask: PropTypes.func.isRequired,
     setTitle: PropTypes.func,
-    setBody: PropTypes.func
+    setBody: PropTypes.func,
+    setDone: PropTypes.func
  }
 
  constructor(props) {
   super(props);
-
   this.onFieldChange = this.onFieldChange.bind(this);
 }
 
@@ -74,8 +77,15 @@ class EditNote extends Component {
   })
 }
 
-onSaveNote() {
-  alert('save note')
+onSaveNote = () => {
+  let data = {
+    title: this.props.data.title,
+    body: this.props.data.body,
+    done: this.props.data.done
+  };
+
+  this.props.replaceTask(this.props.data.userID, this.props.data.taskID, data)
+  Actions.replace('notes');
 }
 
 onClose() {
@@ -115,6 +125,10 @@ onClose() {
           ref='password' 
           value={this.props.data.body}
         />
+        <Switch 
+            onValueChange={(value) => {this.props.setDone(value)}} 
+            value={this.props.data.done} 
+          />
         <Button
           onPress={this.props.onUndo}
           title={'Отменить'}

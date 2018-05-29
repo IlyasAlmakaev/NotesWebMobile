@@ -56,8 +56,6 @@ class AddNote extends Component {
 
  constructor(props) {
   super(props);
-  this.state = {title: '',
-    body: ''};
   this.onFieldChange = this.onFieldChange.bind(this);
 }
 
@@ -69,7 +67,6 @@ class AddNote extends Component {
 }
 
 onSaveNote = () => {
-  
     let data = {
             title: this.props.titleNewNote,
             body: this.props.bodyNewNote

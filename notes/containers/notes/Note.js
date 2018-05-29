@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
         task: state.task.present.task,
         deletedTask: state.task.present.deletedTask,
         replacedTask: state.task.present.replacedTask,
-	    error: state.task.present.error
+	      error: state.task.present.error
 	};
 };
 
@@ -70,6 +70,7 @@ class Note extends Component {
         let data = {
                 title: this.props.data.title,
                 body: this.props.data.body,
+                done: this.props.data.done,
                 taskID: this.props.data.id,
                 userID: this.props.id   
         };
