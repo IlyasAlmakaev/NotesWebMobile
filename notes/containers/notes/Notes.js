@@ -11,6 +11,7 @@ import { styles } from '../../Styles';
 import { setUserID, getTasks } from '../../requests/Requests';
 import PropTypes from 'prop-types';
 import Note from './Note';
+import { Actions } from 'react-native-router-flux';
   
 const mapStateToProps = (state) => {
 	return {
@@ -59,7 +60,7 @@ class Notes extends Component {
 	}
 
   onAddNote() {
-    alert('add note')
+    Actions.replace('addNote');
   }
 
  FlatListItemSeparator = () => {

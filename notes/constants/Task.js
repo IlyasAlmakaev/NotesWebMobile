@@ -7,6 +7,8 @@ export const GET_EDIT_TASK_DATA = 'GET_EDIT_TASK_DATA';
 export const REPLACE_TASK = 'REPLACE_TASK';
 export const GET_ERROR = 'GET_ERROR';
 export const SET_BODY = 'SET_BODY';
+export const SET_TITLE_NEW_NOTE = 'SET_TITLE_NEW_NOTE';
+export const SET_BODY_NEW_NOTE = 'SET_BODY_NEW_NOTE';
 
 export const API_GET_TASKS = 'api/tasks';
 export const API_ADD_TASK = 'api/tasks';
