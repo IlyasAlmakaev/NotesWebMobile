@@ -75,9 +75,12 @@ onSaveNote = () => {
             body: this.props.bodyNewNote
           };
 
-    this.props.addTask(this.props.id, data)
-    Actions.replace('notes');
+    this.props.addTask(this.props.id, data);
+    this.props.setTitleNewNote('');
+    this.props.setBodyNewNote('');
     this.props.onClearHistory();
+    Actions.replace('notes');
+    
 }
 
 onClose = () => {
@@ -87,6 +90,8 @@ onClose = () => {
     [
       {text: 'Cancel', onPress: () => {}, style: 'cancel'},
       {text: 'OK', onPress: () => {
+        this.props.setTitleNewNote('');
+        this.props.setBodyNewNote('');
         this.props.onClearHistory();
         Actions.replace('notes');
       }},

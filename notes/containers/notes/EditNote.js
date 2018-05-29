@@ -88,8 +88,8 @@ onSaveNote = () => {
   };
 
   this.props.replaceTask(this.props.data.userID, this.props.data.taskID, data)
-  Actions.replace('notes');
   this.props.onClearHistory();
+  Actions.replace('notes');
 }
 
 onClose = () =>{
