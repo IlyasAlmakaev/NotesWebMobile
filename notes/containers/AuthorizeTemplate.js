@@ -51,20 +51,16 @@ class AuthorizeTemplate extends Component {
 			  email: this.state.email,
 			  password: this.state.password
         };
-      console.debug("reff" + this.state.email);
+
       this.props.authorizeRequest(this.props.apiUrl, user)
-	//	this.props.fetchData(this.props.apiUrl, user)
     }
 
     componentWillReceiveProps(props) {	
-      console.log("itt " + props.items.id + "err" + props.error);
       if (props.error) {
         alert(props.error)
       } else if (props.items) {
-        alert(props.items.id)
   
         if (this.props.firstNameButton === 'Авторизироваться') {
-          console.log("itt11 " + props.items.id + "err" + props.error);
           Actions.replace('notes');
           props.setUserID(props.items.id);
         } else {

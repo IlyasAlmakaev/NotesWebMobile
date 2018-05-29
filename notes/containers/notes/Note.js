@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native';
 import { deleteTask, getTasks, setEditTaskData, replaceTask } from '../../requests/Requests';
 import { Notes } from './Notes';
+import { styles } from '../../Styles';
 import {
     Button,
     View,
@@ -97,10 +98,14 @@ class Note extends Component {
         <View>
           <Text>{item.title}</Text>
           <Text>{item.body}</Text>
-          <Switch 
-            onValueChange={this.onDone} 
-            value={item.done} 
-          />
+          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start'}}>
+            <Switch 
+              style={styles.flexeble}
+              onValueChange={this.onDone} 
+              value={item.done} 
+            />
+            <Text style={styles.flexeble}>{"Done"}</Text>
+          </View>
           <Button
             onPress={this.onDeleteNote}
             title="Delete Note"
