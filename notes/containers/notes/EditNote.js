@@ -36,7 +36,10 @@ const mapDispatchToProps = (dispatch) => {
     onRedo: (e) => {
       e.preventDefault();
       dispatch(UndoActionCreators.redo());
-    } 
+    },
+    onClearHistory: (e) => {
+      dispatch(UndoActionCreators.clearHistory());
+  } 
 	};
 };
 
@@ -86,15 +89,19 @@ onSaveNote = () => {
 
   this.props.replaceTask(this.props.data.userID, this.props.data.taskID, data)
   Actions.replace('notes');
+  this.props.onClearHistory();
 }
 
-onClose() {
+onClose = () =>{
   Alert.alert(
     'Is exit without saving?',
     '',
     [
       {text: 'Cancel', onPress: () => {}, style: 'cancel'},
-      {text: 'OK', onPress: () => Actions.replace('notes')},
+      {text: 'OK', onPress: () => {
+        Actions.replace('notes');
+        this.props.onClearHistory();
+      }},
     ],
     { cancelable: false }
   );

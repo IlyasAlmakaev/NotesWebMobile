@@ -92,12 +92,14 @@ class AuthorizeTemplate extends Component {
       <View style={styles.container}>
         <TextInput
           autoFocus={true}
+          style={styles.textField}
           onChangeText={(text) => this.setState({emailIsEmpty: !text.trim().length, email: text})} 
           placeholder='Электронная почта'
           ref='email'
           value={this.state.email}
         />
         <TextInput
+          style={styles.textField}
           onChangeText={(text) => this.setState({passwordIsEmpty: !text.trim().length, password: text})}
           placeholder='Пароль'
           ref='password' 
