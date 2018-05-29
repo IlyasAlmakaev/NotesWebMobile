@@ -87,8 +87,8 @@ onClose = () => {
     [
       {text: 'Cancel', onPress: () => {}, style: 'cancel'},
       {text: 'OK', onPress: () => {
-        Actions.replace('notes');
         this.props.onClearHistory();
+        Actions.replace('notes');
       }},
     ],
     { cancelable: false }

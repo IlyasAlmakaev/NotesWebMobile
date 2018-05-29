@@ -24,5 +24,9 @@ export const styles = StyleSheet.create({
       textAlign: 'center',
       color: '#333333',
       marginBottom: 5,
+    },
+    textField: {
+      borderBottomColor: '#000000',
+      borderBottomWidth: 1,
     }
   });

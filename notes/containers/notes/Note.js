@@ -100,11 +100,10 @@ class Note extends Component {
           <Text>{item.body}</Text>
           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start'}}>
             <Switch 
-              style={styles.flexeble}
               onValueChange={this.onDone} 
               value={item.done} 
             />
-            <Text style={styles.flexeble}>{"Done"}</Text>
+            <Text>{"Done"}</Text>
           </View>
           <Button
             onPress={this.onDeleteNote}
