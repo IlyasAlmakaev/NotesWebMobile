@@ -2,7 +2,8 @@ import { BASE_URL } from "../constants/User";
 import { GET_USER_DATA, GET_ERROR } from "../constants/User";
 import { GET_USER_ID, API_GET_TASKS, GET_TASKS, API_REPLACE_TASK, 
     REPLACE_TASK, SET_TITLE, SET_BODY, GET_EDIT_TASK_DATA, 
-    SET_TITLE_NEW_NOTE, SET_BODY_NEW_NOTE, API_ADD_TASK, GET_TASK, SET_DONE } from "../constants/Task";
+    SET_TITLE_NEW_NOTE, SET_BODY_NEW_NOTE, API_ADD_TASK, 
+    GET_TASK, SET_DONE, DELETE_TASK, API_DELETE_TASK } from "../constants/Task";
 
 export function commonAuthorizeRequest(url, user, type, method) {
 
@@ -85,6 +86,32 @@ export function addOrReplaceTaskRequest(url, type, method, id, data) {
     }
 }
 
+export function deleteRequest(url, type, method, id, taskID) {
+
+    let urlFull = BASE_URL + url;
+
+    return (dispatch) => {
+        fetch(urlFull, {  
+			method: method,  
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				'Content-Type': 'text/plain',
+				'access_token': id
+			}
+        })
+        .then((res) => {
+			if (res.status !== 200 && !res.ok) {
+                throw Error(res.statusText);
+            } 
+				
+			return res;
+        })
+        .then((res) => res.json())
+        .then(dispatch({ type: type, payload: taskID }))
+        .catch((error) => dispatch({ type: GET_ERROR, payload: error.message }));
+    }
+}
+
 export function authorizeRequest(url, user) {
     return commonAuthorizeRequest(url, user, GET_USER_DATA, 'post')
 }
@@ -145,7 +172,7 @@ export function replaceTask(id, taskID, data) {
 }
 
 export function deleteTask(id, taskID) {
- //   let url = API_DELETE_TASK + '/' + taskID
-  //  return itemsFetchingDataFromGetRequestForDelete(url, DELETE_TASK, 'delete', id, taskID)
+    let url = API_DELETE_TASK + '/' + taskID
+    return deleteRequest(url, DELETE_TASK, 'delete', id, taskID)
 } 
 

@@ -16,8 +16,6 @@ const mapStateToProps = (state) => {
 	return {
         id: state.task.present.id,
         task: state.task.present.task,
-        deletedTask: state.task.present.deletedTask,
-        replacedTask: state.task.present.replacedTask,
 	      error: state.task.present.error
 	};
 };
@@ -48,7 +46,6 @@ class Note extends Component {
         })),
       ]).isRequired,
       id: PropTypes.string,
-      deletedTask: PropTypes.object.isRequired,
       deleteTask: PropTypes.func.isRequired,
       getTasks: PropTypes.func.isRequired,
       setEditTaskData: PropTypes.func,
@@ -63,7 +60,7 @@ class Note extends Component {
           super(props);
     }
   
-    onPressCell = (e) =>{
+    onPressCell = (e) => {
         e.preventDefault();
 
         let data = {
@@ -78,9 +75,8 @@ class Note extends Component {
         Actions.replace('editNote');
     }
 
-    onDeleteNote() {
-        alert('delete note')
-        this.props.deleteTaskFromForm(this.props.id, this.props.data.id);
+    onDeleteNote = () => {
+        this.props.deleteTask(this.props.id, this.props.data.id);
       }
     
       onDone = (value) => {
