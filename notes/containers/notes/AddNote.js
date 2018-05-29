@@ -27,7 +27,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-        addTaskFromForm: (id, data) => dispatch(addTask(id, data)),
+        addTask: (id, data) => dispatch(addTask(id, data)),
         setTitleNewNote: (titleNewNote) => dispatch(setTitleNewNote(titleNewNote)),
         setBodyNewNote: (bodyNewNote) => dispatch(setBodyNewNote(bodyNewNote)),
         onUndo: (e) => {
@@ -45,7 +45,7 @@ class AddNote extends Component {
 
   static propTypes = {
     id: PropTypes.string,
-    addTaskFromForm: PropTypes.func.isRequired,
+    addTask: PropTypes.func.isRequired,
     task: PropTypes.object.isRequired,
     error: PropTypes.string.isRequired,
     titleNewNote: PropTypes.string.isRequired,
@@ -68,13 +68,15 @@ class AddNote extends Component {
   })
 }
 
-onSaveNote() {
+onSaveNote = () => {
+  
     let data = {
-            title: this.refs.titleNote.value,
-            body: this.refs.bodyNote.value
+            title: this.props.titleNewNote,
+            body: this.props.bodyNewNote
           };
-      // TODO: переправить на нужную страницу
-      this.props.addTaskFromForm(this.props.id, data)
+
+    this.props.addTask(this.props.id, data)
+    Actions.replace('notes');
 }
 
 onClose() {
@@ -105,13 +107,13 @@ onClose() {
           autoFocus={true}
           onChangeText={this.onFieldChange.bind(this, 'titleField')} 
           placeholder='Заголовок'
-          ref='email'
+          ref='titleNote'
           value={this.props.titleNewNote}
         />
         <TextInput
           onChangeText={this.onFieldChange.bind(this, 'bodyField')}
           placeholder='Содержимое заметки'
-          ref='password' 
+          ref='bodyNote' 
           value={this.props.bodyNewNote}
         />
         <Button

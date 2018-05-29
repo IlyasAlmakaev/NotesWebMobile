@@ -1,7 +1,8 @@
 import { BASE_URL } from "../constants/User";
 import { GET_USER_DATA, GET_ERROR } from "../constants/User";
 import { GET_USER_ID, API_GET_TASKS, GET_TASKS, API_REPLACE_TASK, 
-    REPLACE_TASK, SET_TITLE, SET_BODY, GET_EDIT_TASK_DATA, SET_TITLE_NEW_NOTE, SET_BODY_NEW_NOTE } from "../constants/Task";
+    REPLACE_TASK, SET_TITLE, SET_BODY, GET_EDIT_TASK_DATA, 
+    SET_TITLE_NEW_NOTE, SET_BODY_NEW_NOTE, API_ADD_TASK, GET_TASK } from "../constants/Task";
 
 export function commonAuthorizeRequest(url, user, type, method) {
 
@@ -128,6 +129,10 @@ export function getTasks(id) {
     return getTasksRequest(API_GET_TASKS, GET_TASKS, 'get', id)
 }
 
+export function addTask(id, data) {
+    return addOrReplaceTaskRequest(API_ADD_TASK, GET_TASK, 'post', id, data)
+}
+
 export function replaceTask(id, taskID, data) {
     let url = API_REPLACE_TASK + `/${taskID}/replace`
     return addOrReplaceTaskRequest(url, REPLACE_TASK, 'post', id, data)
@@ -137,3 +142,4 @@ export function deleteTask(id, taskID) {
  //   let url = API_DELETE_TASK + '/' + taskID
   //  return itemsFetchingDataFromGetRequestForDelete(url, DELETE_TASK, 'delete', id, taskID)
 } 
+
