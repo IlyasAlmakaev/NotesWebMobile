@@ -66,7 +66,6 @@ class Note extends Component {
     onPressCell = (e) =>{
         e.preventDefault();
 
-        
         let data = {
                 title: this.props.data.title,
                 body: this.props.data.body,

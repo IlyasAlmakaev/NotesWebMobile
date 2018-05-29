@@ -101,6 +101,7 @@ onClose() {
     return (
       <View style={styles.container}>
         <TextInput
+          style={styles.textField}
           autoFocus={true}
           onChangeText={this.onFieldChange.bind(this, 'titleField')} 
           placeholder='Заголовок'
@@ -108,6 +109,7 @@ onClose() {
           value={this.props.titleNewNote}
         />
         <TextInput
+          style={styles.textField}
           multiline = {true}
           onChangeText={this.onFieldChange.bind(this, 'bodyField')}
           placeholder='Содержимое заметки'
