@@ -108,6 +108,7 @@ onClose() {
           value={this.props.titleNewNote}
         />
         <TextInput
+          multiline = {true}
           onChangeText={this.onFieldChange.bind(this, 'bodyField')}
           placeholder='Содержимое заметки'
           ref='bodyNote' 

@@ -120,6 +120,7 @@ onClose() {
           value={this.props.data.title}
         />
         <TextInput
+          multiline = {true}
           onChangeText={this.onFieldChange.bind(this, 'bodyField')}
           placeholder='Содержимое заметки'
           ref='password' 
