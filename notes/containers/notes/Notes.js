@@ -40,21 +40,17 @@ class Notes extends Component {
     error: PropTypes.string.isRequired
  }
 
- static navigationOptions = {
+ static navigationOptions = ({ navigation  }) => ({
   headerRight: (
     <Button
-      onPress={() => this.onAddNote}
+      onPress={() => navigation.navigate('AddNote')}
       title="Add Note"
     />
-  ),
-};
+  )
+})
 
   componentDidMount() {
     this.props.getTasks(this.props.id);
-  }
-
-  onAddNote() {
-    Actions.replace('addNote');
   }
 
  FlatListItemSeparator = () => {
@@ -86,7 +82,7 @@ class Notes extends Component {
       notesTemplate = <Text>{'There are no notes'}</Text>
     }
     return (
-	    <View style={styles.flatContainer}>
+	    <View style={styles.flatContainer} >
         {notesTemplate}
       </View>
     );

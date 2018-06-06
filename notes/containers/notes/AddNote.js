@@ -62,14 +62,29 @@ class AddNote extends Component {
   this.onFieldChange = this.onFieldChange.bind(this);
 }
 
- componentWillMount() {
-  this.props.navigation.setParams({
-      'onRight': this.onSaveNote,
-      'onLeft': this.onClose
+componentDidMount() {
+  this.props.navigation.setParams({ onClose: () => this.onClose(),
+    onSaveNote: () => this.onSaveNote()
   })
 }
 
-onSaveNote = () => {
+static navigationOptions = ({ navigation  }) => ({
+  title: "Add Note",
+  headerLeft: (
+    <Button
+      onPress={() => navigation.state.params.onClose()}
+      title="Close"
+    />
+  ),
+  headerRight: (
+    <Button
+      onPress={() => navigation.state.params.onSaveNote()}
+      title="Add Note"
+    />
+  )
+})
+
+onSaveNote() {
     let data = {
             title: this.props.titleNewNote,
             body: this.props.bodyNewNote
@@ -79,11 +94,10 @@ onSaveNote = () => {
     this.props.setTitleNewNote('');
     this.props.setBodyNewNote('');
     this.props.onClearHistory();
-    Actions.replace('notes');
-    
+    this.props.navigation.push('Notes');
 }
 
-onClose = () => {
+onClose() {
   Alert.alert(
     'Is exit without saving?',
     '',
@@ -93,7 +107,7 @@ onClose = () => {
         this.props.setTitleNewNote('');
         this.props.setBodyNewNote('');
         this.props.onClearHistory();
-        Actions.replace('notes');
+        this.props.navigation.push('Notes');
       }},
     ],
     { cancelable: false }

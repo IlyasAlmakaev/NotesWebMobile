@@ -31,9 +31,6 @@ const Routes =
             } },
         EditNote: { screen: EditNote },
         AddNote: { screen: AddNote },
-      },
-      {
-        initialRouteName: 'Authorization',
       })
 
 //    <Router>
