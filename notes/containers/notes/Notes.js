@@ -40,19 +40,18 @@ class Notes extends Component {
     error: PropTypes.string.isRequired
  }
 
+ static navigationOptions = {
+  headerRight: (
+    <Button
+      onPress={() => this.onAddNote}
+      title="Add Note"
+    />
+  ),
+};
+
   componentDidMount() {
     this.props.getTasks(this.props.id);
   }
-
-  componentWillMount() {
-    this.props.navigation.setParams({
-        'onRight': this.onAddNote
-    })
-  }
-
-  componentWillReceiveProps(props) {	
-    console.log("tsss " + props.tasks + "err" + props.error);
-	}
 
   onAddNote() {
     Actions.replace('addNote');

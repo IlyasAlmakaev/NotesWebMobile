@@ -23,7 +23,12 @@ const Routes =
             navigationOptions: {
                 header: null
               } },
-        Notes: { screen: Notes },
+        Notes: { 
+            screen: Notes,
+            navigationOptions:  {
+                title: 'Notes',
+                headerLeft: null,
+            } },
         EditNote: { screen: EditNote },
         AddNote: { screen: AddNote },
       },
