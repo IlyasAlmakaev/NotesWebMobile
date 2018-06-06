@@ -11,7 +11,6 @@ import {
     Text,
     Switch
   } from 'react-native';
-  import { Actions } from 'react-native-router-flux';
 
 const mapStateToProps = (state) => {
 	return {
@@ -73,7 +72,7 @@ class Note extends Component {
         };
         
         this.props.setEditTaskData(data);
-        Actions.replace('editNote');
+        this.props.navigation.navigate('EditNote')
     }
 
     onDeleteNote = () => {

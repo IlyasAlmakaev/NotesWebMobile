@@ -9,7 +9,6 @@ import {
   View,
   Alert
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import { replaceTask, setTitle, setBody, setDone } from '../../requests/Requests';
 import { styles } from '../../Styles';
@@ -80,6 +79,28 @@ class EditNote extends Component {
   })
 }
 
+componentDidMount() {
+  this.props.navigation.setParams({ onClose: () => this.onClose(),
+    onSaveNote: () => this.onSaveNote()
+  })
+}
+
+static navigationOptions = ({ navigation  }) => ({
+  title: "Edit Note",
+  headerLeft: (
+    <Button
+      onPress={() => navigation.state.params.onClose()}
+      title="Close"
+    />
+  ),
+  headerRight: (
+    <Button
+      onPress={() => navigation.state.params.onSaveNote()}
+      title="Add Note"
+    />
+  )
+})
+
 onSaveNote = () => {
   let data = {
     title: this.props.data.title,
@@ -89,7 +110,7 @@ onSaveNote = () => {
 
   this.props.replaceTask(this.props.data.userID, this.props.data.taskID, data)
   this.props.onClearHistory();
-  Actions.replace('notes');
+  this.props.navigation.push('Notes');
 }
 
 onClose = () =>{
@@ -100,7 +121,7 @@ onClose = () =>{
       {text: 'Cancel', onPress: () => {}, style: 'cancel'},
       {text: 'OK', onPress: () => {
         this.props.onClearHistory();
-        Actions.replace('notes');
+        this.props.navigation.push('Notes');;
       }},
     ],
     { cancelable: false }

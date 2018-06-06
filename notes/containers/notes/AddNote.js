@@ -8,7 +8,6 @@ import {
   View,
   Alert
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import { addTask, setTitleNewNote, setBodyNewNote } from '../../requests/Requests';
 import { styles } from '../../Styles';

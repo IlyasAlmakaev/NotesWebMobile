@@ -11,7 +11,6 @@ import { styles } from '../../Styles';
 import { setUserID, getTasks } from '../../requests/Requests';
 import PropTypes from 'prop-types';
 import Note from './Note';
-import { Actions } from 'react-native-router-flux';
   
 const mapStateToProps = (state) => {
 	return {
@@ -75,7 +74,7 @@ class Notes extends Component {
         keyExtractor = {item => item.id.toString()}
         ItemSeparatorComponent = {this.FlatListItemSeparator}
         renderItem={({item}) => (
-          <Note data={item}/>
+          <Note data={item} navigation={this.props.navigation}/>
         )}
       />
     } else {

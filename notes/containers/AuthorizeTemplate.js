@@ -7,7 +7,6 @@ import {
   } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Actions } from 'react-native-router-flux';
 import { authorizeRequest, setUserID } from "../requests/Requests";
 import { styles } from "../Styles";
 
