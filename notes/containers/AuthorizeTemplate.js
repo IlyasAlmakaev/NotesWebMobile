@@ -34,7 +34,7 @@ class AuthorizeTemplate extends Component {
                     email: '',
                     password: ''};
       this.onBtnClickHandler = this.onBtnClickHandler.bind(this);
-		  this.onBtnGoClickHandler = this.onBtnGoClickHandler.bind(this);
+      this.onBtnGoClickHandler = this.onBtnGoClickHandler.bind(this);
     }
 
     static propTypes = {
@@ -72,9 +72,11 @@ class AuthorizeTemplate extends Component {
     onBtnGoClickHandler(e) {
 		  e.preventDefault();
         if (this.props.firstNameButton === 'Авторизироваться') {
-            Actions.replace('registration');
+         //   Actions.replace('registration');
+            this.props.navigation.push('Registration')
         } else {
-          Actions.replace('authorization');
+        // Actions.replace('authorization');
+          this.props.navigation.push('Authorization')
         }
 	//	this.props.history.push(this.props.navigateAddress);
 	}
