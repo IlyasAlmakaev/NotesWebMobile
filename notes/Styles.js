@@ -33,5 +33,15 @@ export const styles = StyleSheet.create({
       flex: 1, 
       flexDirection: 'row', 
       justifyContent: 'flex-start',
-    }
+    },
+    containerSide: {
+      paddingTop: 20,
+      flex: 1
+    },
+    navItemStyle: {
+      padding: 10
+    },
+    navSectionStyle: {
+      backgroundColor: 'lightgrey'
+    },
   });

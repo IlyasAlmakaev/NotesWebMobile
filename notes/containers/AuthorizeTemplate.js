@@ -72,9 +72,11 @@ class AuthorizeTemplate extends Component {
     onBtnGoClickHandler(e) {
 		  e.preventDefault();
         if (this.props.firstNameButton === 'Авторизироваться') {
-            Actions.replace('registration');
+          this.props.navigation.navigate('Registration')
+        //    Actions.replace('registration');
         } else {
-          Actions.replace('authorization');
+          this.props.navigation.navigate('Authorization')
+       //   Actions.replace('authorization');
         }
 	//	this.props.history.push(this.props.navigateAddress);
 	}
