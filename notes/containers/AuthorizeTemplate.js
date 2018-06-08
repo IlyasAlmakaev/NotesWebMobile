@@ -65,6 +65,7 @@ class AuthorizeTemplate extends Component {
         } else {
           this.props.navigation.navigate('Authorization')
         }
+        this.setState({email: '', password: ''})
       }
     }
     

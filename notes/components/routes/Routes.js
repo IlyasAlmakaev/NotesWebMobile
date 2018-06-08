@@ -2,6 +2,7 @@ import React from 'react'
 import { Router, Scene } from 'react-native-router-flux'
 import Authorization from '../Authorization';
 import Registration from '../Registration';
+import SideMenu from '../SideMenu';
 import Notes from '../../containers/notes/Notes';
 import EditNote from '../../containers/notes/EditNote';
 import AddNote from '../../containers/notes/AddNote';
@@ -10,7 +11,7 @@ import {
     createStackNavigator
   } from 'react-navigation';
 
-  const NotesRoutes = 
+const NotesRoutes = 
   createStackNavigator({
       Notes: { 
           screen: Notes,
@@ -26,6 +27,7 @@ const Drawer =
   createDrawerNavigator({
     NotesRoutes: { screen: NotesRoutes }
     }, {
+      contentComponent: SideMenu,
       navigationOptions: {
           gesturesEnabled: false
         }
