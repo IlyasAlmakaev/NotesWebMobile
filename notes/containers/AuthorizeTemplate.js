@@ -60,7 +60,7 @@ class AuthorizeTemplate extends Component {
       } else if (props.items) {
   
         if (this.props.firstNameButton === 'Авторизироваться') {
-          this.props.navigation.navigate('Notes')
+          this.props.navigation.state.navigate('Drawer')
           props.setUserID(props.items.id);
         } else {
           this.props.navigation.navigate('Authorization')
