@@ -6,31 +6,43 @@ import Notes from '../../containers/notes/Notes';
 import EditNote from '../../containers/notes/EditNote';
 import AddNote from '../../containers/notes/AddNote';
 import {
-    createStackNavigator,
+    createDrawerNavigator,
+    createStackNavigator
   } from 'react-navigation';
 
+  const NotesRoutes = 
+  createStackNavigator({
+      Notes: { 
+          screen: Notes,
+          navigationOptions:  {
+              title: 'Notes',
+              headerLeft: null,
+          } },
+      EditNote: { screen: EditNote },
+      AddNote: { screen: AddNote },
+    })  
 
+const Drawer = 
+  createDrawerNavigator({
+    NotesRoutes: { screen: NotesRoutes }
+    }, {
+      navigationOptions: {
+          gesturesEnabled: false
+        }
+    })
 
 const Routes = 
     createStackNavigator({
         Authorization: { 
-            screen: Authorization,
-            navigationOptions: {
-                header: null
-              } },
+            screen: Authorization },
         Registration: { 
-            screen: Registration,
-            navigationOptions: {
-                header: null
-              } },
-        Notes: { 
-            screen: Notes,
-            navigationOptions:  {
-                title: 'Notes',
-                headerLeft: null,
-            } },
-        EditNote: { screen: EditNote },
-        AddNote: { screen: AddNote },
+            screen: Registration },
+        Drawer: { screen: Drawer }
+      }, {
+        headerMode:'none',
+        navigationOptions: {
+            gesturesEnabled: false
+          }
       })
 
 //    <Router>
