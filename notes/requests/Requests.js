@@ -1,4 +1,4 @@
-import { BASE_URL } from "../constants/User";
+import { BASE_URL, GET_USER_EMAIL } from "../constants/User";
 import { GET_USER_DATA, GET_ERROR } from "../constants/User";
 import { GET_USER_ID, API_GET_TASKS, GET_TASKS, API_REPLACE_TASK, 
     REPLACE_TASK, SET_TITLE, SET_BODY, GET_EDIT_TASK_DATA, 
@@ -119,6 +119,12 @@ export function authorizeRequest(url, user) {
 export function setUserID(id) {
     return (dispatch) => {
         dispatch({ type: GET_USER_ID, payload: id })
+    }
+}
+
+export function setUserEmail(email) {
+    return (dispatch) => {
+        dispatch({ type: GET_USER_EMAIL, payload: email })
     }
 }
 

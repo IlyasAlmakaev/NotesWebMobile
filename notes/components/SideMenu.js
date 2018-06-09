@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { Button, View, Text } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class Authorization extends Component {
+const mapStateToProps = (state) => {
+	return {
+    email: state.user.email,
+	};
+};
+
+class SideMenu extends Component {
 
     onLogout = () => {
         this.props.navigation.navigate('Authorization')
@@ -13,7 +20,7 @@ export default class Authorization extends Component {
 		<View>
             <Text>{""}</Text>
             <Text>{""}</Text>
-            <Text>{"Login"}</Text>
+            <Text>{"email: " + this.props.email}</Text>
             <Button
               onPress={this.onLogout}
               title="Logout"
@@ -22,3 +29,5 @@ export default class Authorization extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(SideMenu);

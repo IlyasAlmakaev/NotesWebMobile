@@ -7,7 +7,7 @@ import {
   } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { authorizeRequest, setUserID } from "../requests/Requests";
+import { authorizeRequest, setUserID, setUserEmail } from "../requests/Requests";
 import { styles } from "../Styles";
 
   const mapStateToProps = (state) => {
@@ -20,7 +20,8 @@ import { styles } from "../Styles";
   const mapDispatchToProps = (dispatch) => {
     return {
       authorizeRequest: (url, user) => dispatch(authorizeRequest(url, user)),
-      setUserID: (id) => dispatch(setUserID(id))
+      setUserID: (id) => dispatch(setUserID(id)),
+      setUserEmail: (email) => dispatch(setUserEmail(email))
     };
   };  
 
@@ -58,10 +59,11 @@ class AuthorizeTemplate extends Component {
       if (props.error) {
         alert(props.error)
       } else if (props.items) {
-  
+        console.log("ressss " + JSON.stringify(props));
         if (this.props.firstNameButton === 'Авторизироваться') {
           this.props.navigation.navigate('Notes')
           props.setUserID(props.items.id);
+          props.setUserEmail(this.state.email);
         } else {
           this.props.navigation.navigate('Authorization')
         }
