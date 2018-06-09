@@ -3,7 +3,8 @@ import {
     StyleSheet,
     TextInput,
     Button,
-    View
+    View,
+    AsyncStorage
   } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -55,19 +56,41 @@ class AuthorizeTemplate extends Component {
       this.props.authorizeRequest(this.props.apiUrl, user)
     }
 
-    componentWillReceiveProps(props) {	
-      if (props.error) {
-        alert(props.error)
-      } else if (props.items) {
-        console.log("ressss " + JSON.stringify(props));
-        if (this.props.firstNameButton === 'Авторизироваться') {
-          this.props.navigation.navigate('Notes')
-          props.setUserID(props.items.id);
-          props.setUserEmail(this.state.email);
-        } else {
-          this.props.navigation.navigate('Authorization')
+    // componentWillReceiveProps(props) {	
+    //   if (props.error) {
+    //     alert(props.error)
+    //   } else if (props.items) {
+    //     console.log("ressss " + JSON.stringify(props));
+    //     if (this.props.firstNameButton === 'Авторизироваться') {
+    //       this.props.navigation.navigate('Notes')
+    //       props.setUserID(props.items.id);
+    //       props.setUserEmail(this.state.email);
+    //     } else {
+    //       this.props.navigation.navigate('Authorization')
+    //     }
+    //     this.setState({email: '', password: ''})
+    //   }
+    // }
+
+    async componentDidUpdate(prevProps, prevState) {
+      console.log("prrr " + JSON.stringify(this.props));
+      if (this.props !== prevProps) {
+        if (this.props.error) {
+          alert(this.props.error)
+        } else if (this.props.items) {
+          console.log("ressss " + JSON.stringify(this.props));
+          if (this.props.firstNameButton === 'Авторизироваться' && this.props.items.userId) {
+            console.log("ressss1 " + JSON.stringify(this.props));
+            this.props.navigation.navigate('Notes')
+            await AsyncStorage.setItem('userID', this.props.items.id);
+            await AsyncStorage.setItem('userEmail', this.state.email);
+        //    this.props.setUserID(this.props.items.id);
+            this.props.setUserEmail(this.state.email);
+          } else {
+            this.props.navigation.navigate('Authorization')
+          }
+          this.setState({email: '', password: ''})
         }
-        this.setState({email: '', password: ''})
       }
     }
     

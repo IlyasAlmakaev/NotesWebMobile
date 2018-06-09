@@ -14,7 +14,6 @@ import {
 
 const mapStateToProps = (state) => {
 	return {
-        id: state.task.present.id,
         task: state.task.present.task,
 	      error: state.task.present.error
 	};

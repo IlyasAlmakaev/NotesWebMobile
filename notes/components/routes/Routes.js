@@ -10,6 +10,7 @@ import {
     createDrawerNavigator,
     createStackNavigator
   } from 'react-navigation';
+import AuthLoadingScreen from '../../containers/AuthLoadingScreen';
 
 const NotesRoutes = 
   createStackNavigator({
@@ -19,8 +20,14 @@ const NotesRoutes =
               title: 'Notes',
               headerLeft: null,
           } },
-      EditNote: { screen: EditNote },
-      AddNote: { screen: AddNote },
+      EditNote: { 
+          screen: EditNote 
+        },
+      AddNote: { 
+          screen: AddNote 
+        },
+    }, {
+        initialRouteName: 'Notes'
     })  
 
 const Drawer = 
@@ -28,6 +35,7 @@ const Drawer =
     NotesRoutes: { screen: NotesRoutes }
     }, {
       contentComponent: SideMenu,
+      drawerCloseRoute: 'DrawerClose',
       navigationOptions: {
           gesturesEnabled: false
         }
@@ -35,26 +43,24 @@ const Drawer =
 
 const Routes = 
     createStackNavigator({
+        AuthLoadingScreen: {
+            screen: AuthLoadingScreen
+        },
         Authorization: { 
-            screen: Authorization },
+            screen: Authorization 
+        },
         Registration: { 
-            screen: Registration },
-        Drawer: { screen: Drawer }
+            screen: Registration 
+        },
+        Drawer: { 
+            screen: Drawer 
+        }
       }, {
         headerMode:'none',
+        initialRouteName: 'AuthLoadingScreen',
         navigationOptions: {
             gesturesEnabled: false
           }
       })
-
-//    <Router>
-//       <Scene key = "root">
-//          <Scene key = "authorization" component = {Authorization} title = "Authorization" initial={true} />
-//          <Scene key = "registration" component = {Registration} title = "Registration" />
-//          <Scene key = "notes" component = {Notes} title = "Notes" onRight={()=>{}} rightTitle={'Add Note'} />
-//          <Scene key = "editNote" component = {EditNote} title = "Edit Note" onRight={()=>{}} rightTitle={'Edit Note'} onLeft={()=>{}} leftTitle={'Close'}/>
-//          <Scene key = "addNote" component = {AddNote} title = "Add Note" onRight={()=>{}} rightTitle={'Add Note'} onLeft={()=>{}} leftTitle={'Close'}/>
-//       </Scene>
-//    </Router>
 
 export default Routes

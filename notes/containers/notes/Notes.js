@@ -5,7 +5,8 @@ import {
     View,
     FlatList,
     Text,
-    Switch
+    Switch,
+    AsyncStorage
   } from 'react-native';
 import { styles } from '../../Styles';
 import { setUserID, getTasks } from '../../requests/Requests';
@@ -14,7 +15,6 @@ import Note from './Note';
   
 const mapStateToProps = (state) => {
 	return {
-    id: state.task.present.id,
     tasks: state.task.present.tasks,
     task: state.task.present.task,
 		error: state.task.present.error
@@ -23,12 +23,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-    getTasks: (id) => dispatch(getTasks(id)),
-    setUserID: (id) => dispatch(setUserID(id))
+    getTasks: (id) => dispatch(getTasks(id))
 	};
 };
 
 class Notes extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {id: ''};
+  }
 
   static propTypes = {
     id: PropTypes.string,
@@ -48,8 +52,11 @@ class Notes extends Component {
   )
 })
 
-  componentDidMount() {
-    this.props.getTasks(this.props.id);
+  async componentDidMount() {
+    const userID = await AsyncStorage.getItem('userID');
+    this.setState({id: userID})
+    console.log(`idddd /${this.state.id}/`);  
+    this.props.getTasks(userID);
   }
 
  FlatListItemSeparator = () => {
@@ -74,7 +81,7 @@ class Notes extends Component {
         keyExtractor = {item => item.id.toString()}
         ItemSeparatorComponent = {this.FlatListItemSeparator}
         renderItem={({item}) => (
-          <Note data={item} navigation={this.props.navigation}/>
+          <Note data={item} navigation={this.props.navigation} id={this.state.id}/>
         )}
       />
     } else {
