@@ -9,7 +9,6 @@ export default class SideMenu extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    console.log("prrr1 " + JSON.stringify(this.props));
     if (this.props !== prevProps) {
       const userEmail = await AsyncStorage.getItem('userEmail');
       this.setState({email: userEmail})

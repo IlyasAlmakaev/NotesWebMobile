@@ -14,7 +14,6 @@ import { styles } from '../../Styles';
 
 const mapStateToProps = (state) => {
 	return {
-        id: state.task.present.id,
         task: state.task.present.task,
         error: state.task.present.error,
         titleNewNote: state.task.present.titleNewNote,
@@ -46,7 +45,6 @@ const mapDispatchToProps = (dispatch) => {
 class AddNote extends Component {
 
   static propTypes = {
-    id: PropTypes.string,
     addTask: PropTypes.func.isRequired,
     task: PropTypes.object.isRequired,
     error: PropTypes.string.isRequired,
@@ -88,8 +86,9 @@ onSaveNote() {
             title: this.props.titleNewNote,
             body: this.props.bodyNewNote
           };
-
-    this.props.addTask(this.props.id, data);
+          
+    const userID = this.props.navigation.getParam('userID');
+    this.props.addTask(userID, data);
     this.props.setTitleNewNote('');
     this.props.setBodyNewNote('');
     this.props.onClearHistory();

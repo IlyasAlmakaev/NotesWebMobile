@@ -46,17 +46,23 @@ class Notes extends Component {
  static navigationOptions = ({ navigation  }) => ({
   headerRight: (
     <Button
-      onPress={() => navigation.navigate('AddNote')}
+      onPress={() => navigation.state.params.onAddNote()}
       title="Add Note"
     />
   )
 })
+
+onAddNote() {
+  this.props.navigation.push('AddNote', { userID: this.state.id});
+}
 
   async componentDidMount() {
     const userID = await AsyncStorage.getItem('userID');
     this.setState({id: userID})
     console.log(`idddd /${this.state.id}/`);  
     this.props.getTasks(userID);
+
+    this.props.navigation.setParams({ onAddNote: () => this.onAddNote() })
   }
 
  FlatListItemSeparator = () => {
