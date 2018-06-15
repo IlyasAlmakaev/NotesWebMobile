@@ -10,7 +10,7 @@ import {
   Alert
 } from 'react-native';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
-import { replaceTask, setTitle, setBody, setDone } from '../../requests/Requests';
+import { replaceTask, setTitle, setBody, setDone } from '../../../framework/requests/Requests';
 import { styles } from '../../Styles';
 
 const mapStateToProps = (state) => {

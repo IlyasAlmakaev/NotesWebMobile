@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native';
-import { deleteTask, getTasks, setEditTaskData, replaceTask } from '../../requests/Requests';
+import { deleteTask, getTasks, setEditTaskData, replaceTask } from '../../../framework/requests/Requests';
 import { Notes } from './Notes';
 import { styles } from '../../Styles';
 import {

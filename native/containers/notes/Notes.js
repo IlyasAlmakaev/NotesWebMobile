@@ -5,11 +5,10 @@ import {
     View,
     FlatList,
     Text,
-    Switch,
     AsyncStorage
   } from 'react-native';
 import { styles } from '../../Styles';
-import { setUserID, getTasks } from '../../requests/Requests';
+import { getTasks } from '../../../framework/requests/Requests';
 import PropTypes from 'prop-types';
 import Note from './Note';
   

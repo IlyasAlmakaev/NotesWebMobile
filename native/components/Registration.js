@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AuthorizeTemplate from '../containers/AuthorizeTemplate';
-import { API_REGISTRATION_URL } from '../constants/User';
+import { API_REGISTRATION_URL } from '../../framework/constants/User';
 
 export default class Authorization extends Component {
 

@@ -6,11 +6,9 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
-  Text,
-  View
+  Platform
 } from 'react-native';
-import Routes from './notes/components/routes/Routes';
+import Routes from './native/components/routes/Routes';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
