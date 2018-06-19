@@ -7,10 +7,12 @@ export default class Authorization extends Component {
   render() {
 
     return (
-      <AuthorizeTemplate apiUrl={API_LOGIN_URL}
-      firstNameButton={'Авторизироваться'}
-      secondNameButton={'На регистрацию'}
-      navigation={this.props.navigation} />
+		<AuthorizeTemplate navigateAddress={'/registration'} 
+		apiUrl={API_LOGIN_URL}
+		firstNameButton={'Авторизироваться'}
+		secondNameButton={'На регистрацию'}
+		nextForm={'/notes'} 
+		history={this.props.history} />
     );
   }
 }
