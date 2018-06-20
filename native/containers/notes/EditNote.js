@@ -108,7 +108,7 @@ onSaveNote = () => {
     done: this.props.data.done
   };
 
-  this.props.replaceTask(localStorage.getItem('userID'), this.props.data.taskID, data)
+  this.props.replaceTask(this.props.data.userID, this.props.data.taskID, data)
   this.props.onClearHistory();
   this.props.navigation.push('Notes');
 }
