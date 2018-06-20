@@ -47,8 +47,8 @@ class AddNote extends Component {
             title: this.refs.titleNote.value,
             body: this.refs.bodyNote.value
               };
-          // TODO: переправить на нужную страницу
-          this.props.addTaskFromForm(this.props.id, data)
+
+          this.props.addTaskFromForm(localStorage.getItem('userID'), data)
 	}
 
 	onBtnCloseClickHandler(e) {

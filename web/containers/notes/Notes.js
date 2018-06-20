@@ -73,18 +73,13 @@ class Notes extends Component {
   }
 
   getTasksComponents() {
-    console.log("idd" + this.props.id);
-    this.props.getTasksFromForm(this.props.id);
+    this.props.getTasksFromForm(localStorage.getItem('userID'));
   }
-
-  componentWillReceiveProps(props) {	
-    console.log("tsss " + props.tasks + "err" + props.error);
-	}
 
   onAddNoteBtnClickHandler(e) {
     e.preventDefault();
     
-    this.props.setUserIDFromForm(this.props.id);
+    this.props.setUserIDFromForm(localStorage.getItem('userID'));
     this.props.history.push('/addNote');
 	}
 

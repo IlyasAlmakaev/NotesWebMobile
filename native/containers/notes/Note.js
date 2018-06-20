@@ -67,7 +67,7 @@ class Note extends Component {
                 body: this.props.data.body,
                 done: this.props.data.done,
                 taskID: this.props.data.id,
-                userID: this.props.id   
+                userID: localStorage.getItem('userID')  
         };
         
         this.props.setEditTaskData(data);

@@ -8,7 +8,6 @@ const mapStateToProps = (state) => {
 	return {
     data: state.task.present.data,
     error: state.task.present.error,
-    replacedTask: state.task.present.replacedTask,
     canUndo: state.task.past.length > 0,
     canRedo: state.task.future.length > 0
 	};
@@ -47,7 +46,6 @@ class EditNote extends Component {
       })),
     ]).isRequired,
     replaceTaskFromForm: PropTypes.func.isRequired,
-    replacedTask: PropTypes.object.isRequired,
     setTitle: PropTypes.func,
     setBody: PropTypes.func
  }
@@ -63,11 +61,11 @@ class EditNote extends Component {
     e.preventDefault();
 
     let data = {
-      title: this.refs.titleNote.value,
-      body: this.refs.bodyNote.value
+      title: this.props.data.title,
+      body: this.props.data.body
       };
 
-    this.props.replaceTaskFromForm(this.props.data.userID, this.props.data.taskID, data)
+    this.props.replaceTaskFromForm(localStorage.getItem('userID'), this.props.data.taskID, data)
     this.props.history.push('/notes');
 	}
 

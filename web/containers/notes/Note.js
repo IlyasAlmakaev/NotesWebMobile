@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteTask, getTasks, setEditTaskData, replaceTask } from '../../../framework/requests/Requests';
-import { Notes } from './Notes';
 
 const mapStateToProps = (state) => {
 	return {
-        id: state.task.present.id,
-        task: state.task.present.task,
-        deletedTask: state.task.present.deletedTask,
-        replacedTask: state.task.present.replacedTask,
+      id: state.task.present.id,
+      task: state.task.present.task,
+      replacedTask: state.task.present.replacedTask,
 	    error: state.task.present.error
 	};
 };
@@ -40,7 +38,6 @@ class Note extends Component {
         })),
       ]).isRequired,
       id: PropTypes.string,
-      deletedTask: PropTypes.object.isRequired,
       deleteTaskFromForm: PropTypes.func.isRequired,
       getTasksFromForm: PropTypes.func.isRequired,
       setEditTaskData: PropTypes.func,
@@ -53,10 +50,6 @@ class Note extends Component {
     
     constructor(props) {
           super(props);
-      // this.state = {title: this.props.data.title,
-      //     body: this.props.data.body,
-      //     id: this.props.data.id,
-      //     done: this.props.data.done};
           this.onEditNoteBtnClickHandler = this.onEditNoteBtnClickHandler.bind(this);
           this.onDeleteNoteBtnClickHandler = this.onDeleteNoteBtnClickHandler.bind(this);
           this.onCheckComplite = this.onCheckComplite.bind(this);
@@ -69,7 +62,7 @@ class Note extends Component {
                 title: this.props.data.title,
                 body: this.props.data.body,
                 taskID: this.props.data.id,
-                userID: this.props.id   
+                userID: localStorage.getItem('userID')   
         };
         
         this.props.setEditTaskDataFromForm(data);

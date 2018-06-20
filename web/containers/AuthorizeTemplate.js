@@ -51,6 +51,7 @@ class AuthorizeTemplate extends Component {
 			if (this.props.nextForm === "/notes") {
 				console.log("itt11 " + props.items.id + "err" + props.error);
 				props.setUserIDFromForm(props.items.id);
+				localStorage.setItem('userID', props.items.id);
 			}
 		}
 	}
