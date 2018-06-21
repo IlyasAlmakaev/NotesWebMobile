@@ -18,7 +18,8 @@ export default class SideMenu extends Component {
 
   onLogout = async () => {
     await AsyncStorage.clear();
-    this.props.navigation.navigate('Authorization')
+  //  this.props.navigation.closeDrawer();
+    this.props.navigation.navigate('Authorization');
   }
 
   render() {

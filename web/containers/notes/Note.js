@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteTask, getTasks, setEditTaskData, replaceTask } from '../../../framework/requests/Requests';
+import { deleteTask, getTasks, setEditTaskData, replaceTask } from '../../../framework/actions/Actions';
 
 const mapStateToProps = (state) => {
 	return {
@@ -14,10 +14,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-        getTasksFromForm: (id) => dispatch(getTasks(id)),
-        deleteTaskFromForm: (id, taskID) => dispatch(deleteTask(id, taskID)),
+        getTasksFromForm: () => dispatch(getTasks()),
+        deleteTaskFromForm: (taskID) => dispatch(deleteTask(taskID)),
         setEditTaskDataFromForm: (data) => dispatch(setEditTaskData(data)),
-        replaceTaskFromForm: (id, taskID, data) => dispatch(replaceTask(id, taskID, data))
+        replaceTaskFromForm: (taskID, data) => dispatch(replaceTask(taskID, data))
 	};
 };
 
@@ -61,8 +61,7 @@ class Note extends Component {
         let data = {
                 title: this.props.data.title,
                 body: this.props.data.body,
-                taskID: this.props.data.id,
-                userID: localStorage.getItem('userID')   
+                taskID: this.props.data.id   
         };
         
         this.props.setEditTaskDataFromForm(data);
@@ -72,15 +71,16 @@ class Note extends Component {
     onDeleteNoteBtnClickHandler(e) {
       e.preventDefault();
   
-      this.props.deleteTaskFromForm(this.props.id, this.props.data.id); 
+      this.props.deleteTaskFromForm(this.props.data.id); 
     }
+    
     onCheckComplite(e) {
 
         let data = { title: this.props.data.title,
             body: this.props.data.body,
             done: e.target.checked};
 
-        this.props.replaceTaskFromForm(this.props.id, this.props.data.id, data)
+        this.props.replaceTaskFromForm(this.props.data.id, data)
     }
   
     render() {

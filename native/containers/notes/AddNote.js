@@ -9,7 +9,7 @@ import {
   Alert
 } from 'react-native';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
-import { addTask, setTitleNewNote, setBodyNewNote } from '../../../framework/requests/Requests';
+import { addTask, setTitleNewNote, setBodyNewNote } from '../../../framework/actions/Actions';
 import { styles } from '../../Styles';
 
 const mapStateToProps = (state) => {
@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-        addTask: (id, data) => dispatch(addTask(id, data)),
+        addTask: (data) => dispatch(addTask(data)),
         setTitleNewNote: (titleNewNote) => dispatch(setTitleNewNote(titleNewNote)),
         setBodyNewNote: (bodyNewNote) => dispatch(setBodyNewNote(bodyNewNote)),
         onUndo: (e) => {
@@ -87,8 +87,7 @@ onSaveNote() {
             body: this.props.bodyNewNote
           };
           
-    const userID = this.props.navigation.getParam('userID');
-    this.props.addTask(userID, data);
+    this.props.addTask(data);
     this.props.setTitleNewNote('');
     this.props.setBodyNewNote('');
     this.props.onClearHistory();

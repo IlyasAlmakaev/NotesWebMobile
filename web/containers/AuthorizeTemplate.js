@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { authorizeRequest, setUserID } from '../../framework/requests/Requests';
+import { authorizeRequest, setUserID } from '../../framework/actions/Actions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 

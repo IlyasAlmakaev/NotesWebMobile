@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native';
-import { deleteTask, getTasks, setEditTaskData, replaceTask } from '../../../framework/requests/Requests';
+import { deleteTask, getTasks, setEditTaskData, replaceTask } from '../../../framework/actions/Actions';
 import { Notes } from './Notes';
 import { styles } from '../../Styles';
 import {
@@ -22,9 +22,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
         getTasks: (id) => dispatch(getTasks(id)),
-        deleteTask: (id, taskID) => dispatch(deleteTask(id, taskID)),
+        deleteTask: (taskID) => dispatch(deleteTask(taskID)),
         setEditTaskData: (data) => dispatch(setEditTaskData(data)),
-        replaceTask: (id, taskID, data) => dispatch(replaceTask(id, taskID, data))
+        replaceTask: (taskID, data) => dispatch(replaceTask(taskID, data))
 	};
 };
 
@@ -66,8 +66,7 @@ class Note extends Component {
                 title: this.props.data.title,
                 body: this.props.data.body,
                 done: this.props.data.done,
-                taskID: this.props.data.id,
-                userID: this.props.id  
+                taskID: this.props.data.id 
         };
         
         this.props.setEditTaskData(data);
@@ -75,16 +74,15 @@ class Note extends Component {
     }
 
     onDeleteNote = () => {
-        this.props.deleteTask(this.props.id, this.props.data.id);
+        this.props.deleteTask(this.props.data.id);
       }
     
       onDone = (value) => {
-        console.log(`replace /${this.props.id}/`);
         let data = { title: this.props.data.title,
             body: this.props.data.body,
             done: value};
 
-        this.props.replaceTask(this.props.id, this.props.data.id, data)
+        this.props.replaceTask(this.props.data.id, data)
      }
   
     render() {

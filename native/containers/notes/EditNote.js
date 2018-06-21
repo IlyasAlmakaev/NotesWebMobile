@@ -10,7 +10,7 @@ import {
   Alert
 } from 'react-native';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
-import { replaceTask, setTitle, setBody, setDone } from '../../../framework/requests/Requests';
+import { replaceTask, setTitle, setBody, setDone } from '../../../framework/actions/Actions';
 import { styles } from '../../Styles';
 
 const mapStateToProps = (state) => {
@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-    replaceTask: (id, taskID, data) => dispatch(replaceTask(id, taskID, data)),
+    replaceTask: (taskID, data) => dispatch(replaceTask(taskID, data)),
     setTitle: (title) => dispatch(setTitle(title)),
     setBody: (body) => dispatch(setBody(body)),
     setDone: (done) => dispatch(setDone(done)),
@@ -50,14 +50,12 @@ class EditNote extends Component {
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
         taskID: PropTypes.number.isRequired,
-        userID: PropTypes.string.isRequired,
         done: PropTypes.bool.isRequired
       }),
       PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
         taskID: PropTypes.number.isRequired,
-        userID: PropTypes.string.isRequired,
         done: PropTypes.bool.isRequired
       })),
     ]).isRequired,
@@ -108,7 +106,7 @@ onSaveNote = () => {
     done: this.props.data.done
   };
 
-  this.props.replaceTask(this.props.data.userID, this.props.data.taskID, data)
+  this.props.replaceTask(this.props.data.taskID, data)
   this.props.onClearHistory();
   this.props.navigation.push('Notes');
 }

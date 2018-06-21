@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addTask } from '../../framework/requests/Requests';
+import { addTask } from '../../framework/actions/Actions';
 
 const mapStateToProps = (state) => {
 	return {
@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-    addTaskFromForm: (id, data) => dispatch(addTask(id, data))
+    addTaskFromForm: (data) => dispatch(addTask(data))
 	};
 };
 
@@ -48,7 +48,7 @@ class AddNote extends Component {
             body: this.refs.bodyNote.value
               };
 
-          this.props.addTaskFromForm(localStorage.getItem('userID'), data)
+          this.props.addTaskFromForm(data)
 	}
 
 	onBtnCloseClickHandler(e) {

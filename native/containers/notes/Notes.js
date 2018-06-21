@@ -4,11 +4,10 @@ import {
     Button,
     View,
     FlatList,
-    Text,
-    AsyncStorage
+    Text
   } from 'react-native';
 import { styles } from '../../Styles';
-import { getTasks } from '../../../framework/requests/Requests';
+import { getTasks } from '../../../framework/actions/Actions';
 import PropTypes from 'prop-types';
 import Note from './Note';
   
@@ -22,7 +21,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-    getTasks: (id) => dispatch(getTasks(id))
+    getTasks: () => dispatch(getTasks())
 	};
 };
 
@@ -30,11 +29,9 @@ class Notes extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {id: ''};
   }
 
   static propTypes = {
-    id: PropTypes.string,
     getTasks: PropTypes.func.isRequired,
     setUserID: PropTypes.func,
     tasks: PropTypes.array.isRequired,
@@ -52,15 +49,11 @@ class Notes extends Component {
 })
 
 onAddNote() {
-  this.props.navigation.push('AddNote', { userID: this.state.id});
+  this.props.navigation.push('AddNote');
 }
 
-  async componentDidMount() {
-    const userID = await AsyncStorage.getItem('userID');
-    this.setState({id: userID})
-    console.log(`idddd /${this.state.id}/`);  
-    this.props.getTasks(userID);
-
+  componentDidMount() {
+    this.props.getTasks();
     this.props.navigation.setParams({ onAddNote: () => this.onAddNote() })
   }
 
@@ -86,7 +79,7 @@ onAddNote() {
         keyExtractor = {item => item.id.toString()}
         ItemSeparatorComponent = {this.FlatListItemSeparator}
         renderItem={({item}) => (
-          <Note data={item} navigation={this.props.navigation} id={this.state.id}/>
+          <Note data={item} navigation={this.props.navigation}/>
         )}
       />
     } else {

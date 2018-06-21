@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
-import { setTitle, setBody, replaceTask } from '../../framework/requests/Requests';
+import { setTitle, setBody, replaceTask } from '../../framework/actions/Actions';
 
 const mapStateToProps = (state) => {
 	return {
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-    replaceTaskFromForm: (id, taskID, data) => dispatch(replaceTask(id, taskID, data)),
+    replaceTaskFromForm: (taskID, data) => dispatch(replaceTask(taskID, data)),
     setTitle: (title) => dispatch(setTitle(title)),
     setBody: (body) => dispatch(setBody(body)),
     onUndo: (e) => {
@@ -36,13 +36,11 @@ class EditNote extends Component {
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
-        taskID: PropTypes.number.isRequired,
-        userID: PropTypes.string.isRequired}),
+        taskID: PropTypes.number.isRequired}),
       PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
-        taskID: PropTypes.number.isRequired,
-        userID: PropTypes.string.isRequired
+        taskID: PropTypes.number.isRequired
       })),
     ]).isRequired,
     replaceTaskFromForm: PropTypes.func.isRequired,
@@ -65,7 +63,7 @@ class EditNote extends Component {
       body: this.props.data.body
       };
 
-    this.props.replaceTaskFromForm(localStorage.getItem('userID'), this.props.data.taskID, data)
+    this.props.replaceTaskFromForm(this.props.data.taskID, data)
     this.props.history.push('/notes');
 	}
 

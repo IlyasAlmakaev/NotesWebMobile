@@ -32,17 +32,17 @@ export function commonAuthorizeRequest(url, user, type, method) {
     }
 }
 
-export function getTasksRequest(url, type, method, id) {
+export function getTasksRequest(url, type, method) {
 
     let urlFull = BASE_URL + url;
 
-    return (dispatch) => {
+    return (dispatch, getState, userID) => {
         fetch(urlFull, {  
 			method: method,  
 			headers: {
 				'Accept': 'application/json, text/plain, */*',
 				'Content-Type': 'text/plain',
-				'access_token': id
+				'access_token': userID
 			}
         })
         .then((res) => {
@@ -58,18 +58,18 @@ export function getTasksRequest(url, type, method, id) {
     }
 }
 
-export function addOrReplaceTaskRequest(url, type, method, id, data) {
+export function addOrReplaceTaskRequest(url, type, method, data) {
 
     let urlFull = BASE_URL + url;
     let bodyData = JSON.stringify(data);
 
-    return (dispatch) => {
+    return (dispatch, getState, userID) => {
         fetch(urlFull, {  
 			method: method,  
 			headers: {
 				'Accept': 'application/json, text/plain, */*',
 				'Content-Type': 'application/json',
-				'access_token': id
+				'access_token': userID
 			},  
 			body: bodyData
         })
@@ -86,17 +86,17 @@ export function addOrReplaceTaskRequest(url, type, method, id, data) {
     }
 }
 
-export function deleteRequest(url, type, method, id, taskID) {
+export function deleteRequest(url, type, method, taskID) {
 
     let urlFull = BASE_URL + url;
 
-    return (dispatch) => {
+    return (dispatch, getState, userID) => {
         fetch(urlFull, {  
 			method: method,  
 			headers: {
 				'Accept': 'application/json, text/plain, */*',
 				'Content-Type': 'text/plain',
-				'access_token': id
+				'access_token': userID
 			}
         })
         .then((res) => {
@@ -164,21 +164,21 @@ export function setBodyNewNote(bodyNewNote) {
     }
 }
 
-export function getTasks(id) {
-    return getTasksRequest(API_GET_TASKS, GET_TASKS, 'get', id)
+export function getTasks() {
+    return getTasksRequest(API_GET_TASKS, GET_TASKS, 'get')
 }
 
-export function addTask(id, data) {
-    return addOrReplaceTaskRequest(API_ADD_TASK, GET_TASK, 'post', id, data)
+export function addTask(data) {
+    return addOrReplaceTaskRequest(API_ADD_TASK, GET_TASK, 'post', data)
 }
 
-export function replaceTask(id, taskID, data) {
+export function replaceTask(taskID, data) {
     let url = API_REPLACE_TASK + `/${taskID}/replace`
-    return addOrReplaceTaskRequest(url, REPLACE_TASK, 'post', id, data)
+    return addOrReplaceTaskRequest(url, REPLACE_TASK, 'post', data)
 }
 
-export function deleteTask(id, taskID) {
+export function deleteTask(taskID) {
     let url = API_DELETE_TASK + '/' + taskID
-    return deleteRequest(url, DELETE_TASK, 'delete', id, taskID)
+    return deleteRequest(url, DELETE_TASK, 'delete', taskID)
 } 
 

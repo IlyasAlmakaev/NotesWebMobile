@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getTasks, setUserID } from '../../../framework/requests/Requests';
+import { getTasks, setUserID } from '../../../framework/actions/Actions';
 import Note from './Note'
 
 const mapStateToProps = (state) => {
 	return {
-    id: state.task.present.id,
     tasks: state.task.present.tasks,
     task: state.task.present.task,
 		error: state.task.present.error
@@ -15,8 +14,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-    getTasksFromForm: (id) => dispatch(getTasks(id)),
-    setUserIDFromForm: (id) => dispatch(setUserID(id))
+    getTasksFromForm: () => dispatch(getTasks()),
+    setUserIDFromForm: () => dispatch(setUserID())
 	};
 };
 
@@ -55,7 +54,6 @@ class NotesList extends Component {
 class Notes extends Component {
 
   static propTypes = {
-    id: PropTypes.string,
     getTasksFromForm: PropTypes.func.isRequired,
     setUserID: PropTypes.func,
     tasks: PropTypes.array.isRequired,
@@ -73,13 +71,13 @@ class Notes extends Component {
   }
 
   getTasksComponents() {
-    this.props.getTasksFromForm(localStorage.getItem('userID'));
+    this.props.getTasksFromForm();
   }
 
   onAddNoteBtnClickHandler(e) {
     e.preventDefault();
     
-    this.props.setUserIDFromForm(localStorage.getItem('userID'));
+    this.props.setUserIDFromForm();
     this.props.history.push('/addNote');
 	}
 

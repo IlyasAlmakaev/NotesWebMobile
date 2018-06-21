@@ -8,7 +8,7 @@ import {
   } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { authorizeRequest, setUserID, setUserEmail } from "../../framework/requests/Requests";
+import { authorizeRequest, setUserID, setUserEmail } from "../../framework/actions/Actions";
 import { styles } from "../Styles";
 
   const mapStateToProps = (state) => {
