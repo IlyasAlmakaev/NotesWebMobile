@@ -36,25 +36,29 @@ export function getTasksRequest(url, type, method) {
 
     let urlFull = BASE_URL + url;
 
-    return (dispatch, getState, userID) => {
-        fetch(urlFull, {  
-			method: method,  
-			headers: {
-				'Accept': 'application/json, text/plain, */*',
-				'Content-Type': 'text/plain',
-				'access_token': userID
-			}
+    return (dispatch, getState, storage) => {
+        storage.getItem('userID')
+        .then((userID) => { 
+            fetch(urlFull, {  
+                method: method,  
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'text/plain',
+                    'access_token': userID
+                }
+            })
+            .then((res) => {
+                if (res.status !== 200 && !res.ok) {
+                    throw Error(res.statusText);
+                } 
+                    
+                return res;
+            })
+            .then((res) => res.json())
+            .then((items) => dispatch({ type: type, payload: items }))
+            .catch((error) => dispatch({ type: GET_ERROR, payload: error.message }));
         })
-        .then((res) => {
-			if (res.status !== 200 && !res.ok) {
-                throw Error(res.statusText);
-            } 
-				
-			return res;
-        })
-        .then((res) => res.json())
-        .then((items) => dispatch({ type: type, payload: items }))
-        .catch((error) => dispatch({ type: GET_ERROR, payload: error.message }));
+        
     }
 }
 
@@ -117,7 +121,8 @@ export function authorizeRequest(url, user) {
 }
 
 export function setUserID(id) {
-    return (dispatch) => {
+    return (dispatch, getState, storage) => {
+        storage.setItem('userID', props.items.id);
         dispatch({ type: GET_USER_ID, payload: id })
     }
 }

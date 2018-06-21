@@ -5,6 +5,11 @@ import { Provider } from 'react-redux';
 import configureStore from './framework/store/configureStore';
 import { AsyncStorage, ActivityIndicator } from 'react-native';
 
+const asyncLocalStorage = {
+  getItem: (key) => Promise.resolve(AsyncStorage.getItem(key)),
+  setItem: (key, value) => Promise.resolve(AsyncStorage.setItem(key, value))
+}
+
 class ReduxApp extends React.Component {
   constructor(prop) {
     super(prop);
@@ -13,13 +18,24 @@ class ReduxApp extends React.Component {
     }
   }
 
-  async componentDidMount() {
-    this.setState({ userID: await AsyncStorage.getItem('userID') })
+  // componentDidMount() {
+  //   AsyncStorage.getItem('userID').then( (userID)=> { 
+  //     this.setState({userID})
+  //   })
+  // }
+  componentDidMount() {
+    AsyncStorage.getItem('userID').then( (userID)=> { 
+      this.setState({userID})
+    })
   }
+
+  // async componentDidMount() {
+  // //  this.setState({ userID: await AsyncStorage.getItem('userID') })
+  // }
 
   render() {
     return this.state.userID 
-      ? <Provider store={configureStore(this.state.userID)}>
+      ? <Provider store={configureStore(asyncLocalStorage)}>
           <App />
         </Provider>
       : <ActivityIndicator/>
