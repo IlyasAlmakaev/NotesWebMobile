@@ -6,6 +6,7 @@ import Note from './Note'
 
 const mapStateToProps = (state) => {
 	return {
+    id: state.task.present.id,
     tasks: state.task.present.tasks,
     task: state.task.present.task,
 		error: state.task.present.error
@@ -14,8 +15,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-    getTasksFromForm: () => dispatch(getTasks()),
-    setUserIDFromForm: () => dispatch(setUserID())
+    getTasksFromForm: () => dispatch(getTasks())
 	};
 };
 
@@ -54,8 +54,8 @@ class NotesList extends Component {
 class Notes extends Component {
 
   static propTypes = {
+    id: PropTypes.string,
     getTasksFromForm: PropTypes.func.isRequired,
-    setUserID: PropTypes.func,
     tasks: PropTypes.array.isRequired,
     task: PropTypes.object.isRequired,
     error: PropTypes.string.isRequired
@@ -76,8 +76,7 @@ class Notes extends Component {
 
   onAddNoteBtnClickHandler(e) {
     e.preventDefault();
-    
-    this.props.setUserIDFromForm();
+
     this.props.history.push('/addNote');
 	}
 

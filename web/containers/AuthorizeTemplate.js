@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		fetchData: (url, user) => dispatch(authorizeRequest(url, user)),
-		setUserIDFromForm: (id) => dispatch(setUserID(id))
+		setUserID: (id) => dispatch(setUserID(id))
 	};
 };
 
@@ -49,9 +49,7 @@ class AuthorizeTemplate extends Component {
 			this.props.history.push(this.props.nextForm);
 
 			if (this.props.nextForm === "/notes") {
-				console.log("itt11 " + props.items.id + "err" + props.error);
-				props.setUserIDFromForm(props.items.id);
-				localStorage.setItem('userID', props.items.id);
+				props.setUserID(props.items.id);
 			}
 		}
 	}
