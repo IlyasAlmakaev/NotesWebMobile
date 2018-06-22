@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-    addTaskFromForm: (data) => dispatch(addTask(data))
+        addTaskFromForm: (data) => dispatch(addTask(data))
 	};
 };
 

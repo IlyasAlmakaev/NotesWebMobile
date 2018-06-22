@@ -19,5 +19,4 @@ class ReduxApp extends React.Component {
   }
 }
 
-
 AppRegistry.registerComponent('notesReactNative', () => ReduxApp);
