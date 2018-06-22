@@ -11,34 +11,11 @@ const asyncLocalStorage = {
 }
 
 class ReduxApp extends React.Component {
-  constructor(prop) {
-    super(prop);
-    this.state = {
-      userID: null
-    }
-  }
-
-  // componentDidMount() {
-  //   AsyncStorage.getItem('userID').then( (userID)=> { 
-  //     this.setState({userID})
-  //   })
-  // }
-  componentDidMount() {
-    AsyncStorage.getItem('userID').then( (userID)=> { 
-      this.setState({userID})
-    })
-  }
-
-  // async componentDidMount() {
-  // //  this.setState({ userID: await AsyncStorage.getItem('userID') })
-  // }
 
   render() {
-    return this.state.userID 
-      ? <Provider store={configureStore(asyncLocalStorage)}>
+    return <Provider store={configureStore(asyncLocalStorage)}>
           <App />
         </Provider>
-      : <ActivityIndicator/>
   }
 }
 
